@@ -2,10 +2,11 @@
 using LEDLuxe.Core.Entities.Orders;
 using LEDLuxe.Core.Interfaces;
 using LEDLuxe.Core.Interfaces.Repositories;
+using LEDLuxe.Core.Interfaces.Services;
 
 namespace LEDLuxe.Core.Services;
 
-public class OrderService(IOrderRepository orderRepository, IProductRepository productRepository, IUnitOfWork unitOfWork)
+public class OrderService(IOrderRepository orderRepository, IProductRepository productRepository, IUnitOfWork unitOfWork) : IOrderService
 {
     private readonly IOrderRepository _orderRepository = orderRepository;
     private readonly IProductRepository _productRepository = productRepository;

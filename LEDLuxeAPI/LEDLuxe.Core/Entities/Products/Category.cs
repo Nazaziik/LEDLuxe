@@ -19,7 +19,7 @@ public class Category
     {
         if (string.IsNullOrWhiteSpace(newName))
             throw new ArgumentException("Name cannot be null or empty.", nameof(newName));
-        
+
         Name = newName;
     }
 }

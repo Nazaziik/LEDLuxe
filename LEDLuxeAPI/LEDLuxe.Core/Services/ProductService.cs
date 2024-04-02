@@ -1,9 +1,10 @@
 ﻿using LEDLuxe.Core.Entities.Products;
 using LEDLuxe.Core.Interfaces.Repositories;
+using LEDLuxe.Core.Interfaces.Services;
 
 namespace LEDLuxe.Core.Services;
 
-public class ProductService(IProductRepository productRepository)
+public class ProductService(IProductRepository productRepository) : IProductService
 {
     private readonly IProductRepository _productRepository = productRepository;
 
@@ -68,7 +69,7 @@ public class ProductService(IProductRepository productRepository)
 
         var product = await _productRepository.GetByIdAsync(productId) ??
                       throw new InvalidOperationException($"Product with ID {productId} not found or has been deleted.");
-        
+
         if (product.Rates.Any(r => r.UserId == rate.UserId))
             throw new InvalidOperationException("User has already rated this product.");
 
@@ -81,7 +82,7 @@ public class ProductService(IProductRepository productRepository)
         var product = await _productRepository.GetByIdAsync(productId) ??
                       throw new InvalidOperationException($"Product with ID {productId} not found or has been deleted.");
 
-        var rate = product.Rates.FirstOrDefault(r => r.Id == rateId) ?? 
+        var rate = product.Rates.FirstOrDefault(r => r.Id == rateId) ??
             throw new InvalidOperationException($"Rate with ID {rateId} not found for the product.");
 
         product.RemoveRate(rate);

@@ -1,17 +1,13 @@
-﻿using LEDLuxe.Core.Interfaces.Repositories;
-using LEDLuxe.Infrastructure.Repositories;
+﻿using LEDLuxe.Application;
+using LEDLuxe.Core;
+using LEDLuxe.Infrastructure;
 using LEDLuxe.Infrastructure.Bootstrap;
 
 namespace LEDLuxe.Web;
 
-public class Startup
+public class Startup(IConfiguration configuration)
 {
-    public IConfiguration Configuration { get; }
-
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
+    public IConfiguration Configuration { get; } = configuration;
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -19,8 +15,9 @@ public class Startup
 
         services.AddControllersWithViews();
 
-        services.AddScoped<IProductRepository, ProductRepository>();
-        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddCoreLayer();
+        services.AddApplicationLayer();
+        services.AddInfrastructureLayer();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

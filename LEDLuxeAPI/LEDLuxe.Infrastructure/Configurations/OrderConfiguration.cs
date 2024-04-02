@@ -1,7 +1,7 @@
 ﻿using LEDLuxe.Core.Entities.Orders;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
 using LEDLuxe.Core.Entities.Users;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LEDLuxe.Infrastructure.Configurations;
 

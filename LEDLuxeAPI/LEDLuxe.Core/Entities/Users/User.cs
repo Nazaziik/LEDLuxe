@@ -55,7 +55,7 @@ public class User
         _passwordHash = passwordHasher.HashPassword(newPassword);
     }
 
-    private static bool IsValidEmail(string email)
+    public static bool IsValidEmail(string email)
     {
         if (string.IsNullOrWhiteSpace(email))
             return false;
