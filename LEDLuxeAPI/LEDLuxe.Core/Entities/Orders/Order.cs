@@ -1,4 +1,5 @@
 ﻿using LEDLuxe.Core.Entities.Products;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace LEDLuxe.Core.Entities.Orders;
@@ -8,6 +9,9 @@ public class Order
     public Guid Id { get; private set; }
 
     public DateTime OrderDate { get; private set; }
+
+    [Timestamp]
+    public byte[] RowVersion { get; private set; }
 
     [JsonIgnore]
     public decimal TotalPrice => OrderItems.Sum(item => item.UnitPrice * item.Quantity);
@@ -43,6 +47,12 @@ public class Order
 
         if (item != null)
             OrderItems.Remove(item);
+    }
+
+    public void UpdateItems(ICollection<OrderItem> items)
+    {
+        if (items != null)
+            OrderItems = items;
     }
 
     public void UpdateItemQuantity(Guid productId, int quantity)

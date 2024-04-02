@@ -1,4 +1,5 @@
-﻿using LEDLuxe.Core.Entities.Products;
+﻿using LEDLuxe.Core.Entities.Orders;
+using LEDLuxe.Core.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,6 +15,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Description).HasMaxLength(999);
         builder.Property(p => p.Price).IsRequired();
         builder.Property(p => p.StockQuantity).IsRequired().HasDefaultValue(0);
+        builder.Property(p => p.IsDeleted).HasDefaultValue(false);
 
         builder
             .HasMany(p => p.Categories)
@@ -24,5 +26,10 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .HasMany(p => p.Rates)
             .WithOne(c => c.Product)
             .HasForeignKey(r => r.ProductId);
+
+        builder
+            .HasMany<OrderItem>()
+            .WithOne()
+            .HasForeignKey(oi => oi.ProductId);
     }
 }

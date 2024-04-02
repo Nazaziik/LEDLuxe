@@ -1,5 +1,4 @@
 ﻿using LEDLuxe.Core.Entities.Products;
-using LEDLuxe.Core.Entities.Rates;
 
 namespace LEDLuxe.Core.Interfaces.Repositories;
 
@@ -7,17 +6,29 @@ public interface IProductRepository
 {
     Task<Product> GetByIdAsync(Guid id);
 
-    Task<List<Product>> GetAllAsync();
+    Task<IEnumerable<Product>> GetAllAsync(bool includeDeleted = false);
 
     Task AddAsync(Product product);
 
     Task UpdateAsync(Product product);
 
-    Task DeleteAsync(Product product);
+    Task DeleteAsync(Guid productId);
 
-    Task AddCategoryAsync(Product product, Category category);
+    Task AddPhotoUrlAsync(Guid productId, string url);
 
-    Task RemoveCategoryAsync(Product product, Category category);
+    Task RemovePhotoUrlAsync(Guid productId, string url);
 
-    Task AddRateAsync(Product product, Rate rate);
+    Task UpdatePhotoUrlAsync(Guid productId, string oldUrl, string newUrl);
+
+    Task AddRateAsync(Guid productId, Rate rate);
+
+    Task RemoveRateAsync(Guid productId, Rate rate);
+
+    Task<IEnumerable<Rate>> GetRatesByProductIdAsync(Guid productId);
+
+    Task AddCategoryAsync(Guid productId, Category category);
+
+    Task RemoveCategoryAsync(Guid productId, Category category);
+
+    Task<IEnumerable<Category>> GetCategoriesByProductIdAsync(Guid productId);
 }

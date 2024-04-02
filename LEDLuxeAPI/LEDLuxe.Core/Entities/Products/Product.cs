@@ -1,6 +1,4 @@
-﻿using LEDLuxe.Core.Entities.Rates;
-
-namespace LEDLuxe.Core.Entities.Products;
+﻿namespace LEDLuxe.Core.Entities.Products;
 
 public class Product
 {
@@ -15,6 +13,8 @@ public class Product
     public int StockQuantity { get; set; }
 
     public List<string> PhotoUrls { get; private set; } = [];
+
+    public bool IsDeleted { get; set; }
 
     public ICollection<Category> Categories { get; private set; } = [];
 
@@ -53,11 +53,18 @@ public class Product
             AddPhotoUrl(newUrl);
     }
 
-    public void AddRate(Rate rate)
+    public void AddRate(Rate newRate)
     {
-        ArgumentNullException.ThrowIfNull(rate);
+        ArgumentNullException.ThrowIfNull(newRate);
 
-        Rates.Add(rate);
+        Rate? rate = Rates.Where(r => r.Id == newRate.Id).FirstOrDefault();
+
+        if (rate == null)
+            Rates.Add(newRate);
+        else
+        {
+            //update existing rate
+        }
     }
 
     public void RemoveRate(Rate rate)
@@ -71,7 +78,7 @@ public class Product
     {
         if (Rates.Count == 0)
             return 0;
-        
+
         return Rates.Average(rate => rate.Value);
     }
 

@@ -1,6 +1,5 @@
 ﻿using LEDLuxe.Core.Entities.Orders;
 using LEDLuxe.Core.Entities.Products;
-using LEDLuxe.Core.Entities.Rates;
 using LEDLuxe.Core.Entities.Users;
 using LEDLuxe.Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,5 @@
-﻿using LEDLuxe.Core.Entities.Rates;
+﻿using LEDLuxe.Core.Entities.Products;
+using LEDLuxe.Core.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,6 +13,11 @@ public class RateConfiguration : IEntityTypeConfiguration<Rate>
 
         builder.Property(r => r.Value).IsRequired();
         builder.Property(r => r.Comment).HasMaxLength(400);
+
+        builder
+            .HasOne<User>()
+            .WithMany()
+            .HasForeignKey(r => r.UserId);
 
         builder
             .HasOne(r => r.Product)

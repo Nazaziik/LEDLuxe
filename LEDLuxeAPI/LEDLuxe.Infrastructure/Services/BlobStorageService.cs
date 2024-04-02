@@ -2,16 +2,10 @@
 
 namespace LEDLuxe.Infrastructure.Services;
 
-public class BlobStorageService
+public class BlobStorageService(BlobServiceClient blobServiceClient, string containerName)
 {
-    private readonly BlobServiceClient _blobServiceClient;
-    private readonly string _containerName;
-
-    public BlobStorageService(BlobServiceClient blobServiceClient, string containerName)
-    {
-        _blobServiceClient = blobServiceClient;
-        _containerName = containerName;
-    }
+    private readonly BlobServiceClient _blobServiceClient = blobServiceClient;
+    private readonly string _containerName = containerName;
 
     public async Task<string> UploadPhotoAsync(Stream photoStream, string fileName)
     {

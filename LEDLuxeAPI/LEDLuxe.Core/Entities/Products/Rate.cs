@@ -1,6 +1,4 @@
-﻿using LEDLuxe.Core.Entities.Products;
-
-namespace LEDLuxe.Core.Entities.Rates;
+﻿namespace LEDLuxe.Core.Entities.Products;
 
 public class Rate
 {
@@ -10,14 +8,17 @@ public class Rate
 
     public string Comment { get; private set; }
 
+    public Guid UserId { get; private set; }
+
     public Guid ProductId { get; private set; }
 
     public Product Product { get; private set; }
 
-    public Rate(Guid productId, int value, string comment = "")
+    public Rate(Guid productId, Guid userId, int value, string comment = "")
     {
         Id = Guid.NewGuid();
         ProductId = productId;
+        UserId = userId;
         SetValue(value);
         Comment = comment;
     }
